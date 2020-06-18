@@ -1,7 +1,7 @@
 from flask_restful import Api
 
-from App.apis.movie_user.hello_api import Hello
+from App.apis.movie_user.movie_user_api import MovieUsersResource
 
 client_api = Api(prefix="/user")
 
-client_api.add_resource(Hello, "/hello")
+client_api.add_resource(MovieUsersResource, "/movieusers")
