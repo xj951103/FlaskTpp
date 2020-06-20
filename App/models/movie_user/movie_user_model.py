@@ -20,3 +20,6 @@ class MovieUser(BaseModel):
     @password.setter
     def password(self, val):
         self._password = generate_password_hash(val)
+
+    def check_password(self, val):
+        return check_password_hash(self._password, password=val)
