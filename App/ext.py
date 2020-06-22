@@ -8,10 +8,12 @@ migrate = Migrate()
 
 cache = Cache(
     config={
-
+        'CACHE_TYPE': 'simple'
     }
 )
+
 
 def init_ext(app):
     db.init_app(app)
     migrate.init_app(app, db)
+    cache.init_app(app)

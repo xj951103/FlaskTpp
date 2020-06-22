@@ -5,6 +5,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.models.movie_user.model_constant import PERMISSION_NONE
 
+COMMON_USER = 0
+BLACK_USER = 1
+VIP_USER = 2
 
 class MovieUser(BaseModel):
     user_name = db.Column(db.String(32), unique=True)
@@ -23,3 +26,9 @@ class MovieUser(BaseModel):
 
     def check_password(self, val):
         return check_password_hash(self._password, password=val)
+
+    def check_permission(self, permission):
+        if BLACK_USER & self.permission == BLACK_USER:
+            return False
+        else:
+            return permission & self.permission == permission

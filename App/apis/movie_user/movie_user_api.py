@@ -4,6 +4,7 @@ from flask_restful import Resource, reqparse, abort, fields, marshal_with, marsh
 from App.models.movie_user import MovieUser
 from App.apis.movie_user.model_utils import get_user
 from App.apis.api_constant import HTTP_CREATE_SUCCESS, USER_ACTION_LOGIN, USER_ACTION_REGISTER, HTTP_SUCCESS
+from App.ext import cache
 
 base_parse = reqparse.RequestParser()
 base_parse.add_argument("password", type=str, required=True, help="请输入密码！")
@@ -70,7 +71,7 @@ class MovieUsersResource(Resource):
                 abort(401, msg="密码错误!")
             token = uuid.uuid4().hex
 
-            # cache.set(token, user.id, timeout=60 * 60 * 24 * 7)
+            cache.set(token, user.id, timeout=60 * 60 * 24 * 7)
 
             data = {
                 "msg": "login success",
