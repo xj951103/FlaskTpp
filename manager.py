@@ -9,7 +9,6 @@ env = os.environ.get("flask_env", "develop")
 
 app = create_app(env)
 
-
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)
 
